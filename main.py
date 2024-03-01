@@ -24,7 +24,7 @@ def main():
     group = dict()
     for person in all_expenses['people']:
         group.update({
-            person: Person(
+            person.upper(): Person(
                     name=person,
                     expenses=all_expenses['expenses'].get(person, None)
                     )
@@ -137,7 +137,7 @@ def calculate_split_debt(group, split_with, amount):
     split_between_number = len(split_with)
     debt_per_person = float(amount / split_between_number)
     for person in split_with:
-        group[person].add_debt(debt_per_person)
+        group[person.upper()].add_debt(debt_per_person)
 
 
 def calculate_all_debt(group, amount):
@@ -145,7 +145,7 @@ def calculate_all_debt(group, amount):
     split_between_number = len(group)
     debt_per_person = float(amount / split_between_number)
     for person in group:
-        group[person].add_debt(debt_per_person)
+        group[person.upper()].add_debt(debt_per_person)
 
 
 def read_yaml(input_file):

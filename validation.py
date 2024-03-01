@@ -4,8 +4,8 @@ def validate_yaml(all_expenses):
     print("Validating the expense names to match name defined under people...")
     validated_key_names, bad_names = validate_expenses_names(all_expenses)
     if not validated_key_names:
-        print('\nError: When setting the names under "expenses", the name must match whats under "people"')
-        print("The following names are not valid (not case sensitive).")
+        print('\nError: When setting the names under "expenses", the name must match with whats under "people"')
+        print("The following names are not valid (CASE SENSITIVE).")
         [print(f" - {name}") for name in bad_names]
         print('Double check and ensure the names under expenses match whats defined under "people".')
         sys.exit(1)
@@ -22,11 +22,11 @@ def validate_yaml(all_expenses):
 
 # Validate names of the key matches under people.
 def validate_expenses_names(all_expenses):
-    all_names_upper = [name.upper() for name in all_expenses['people']]
+    all_names = [name for name in all_expenses['people']]
 
     bad_names = list()
     for name, expenses in all_expenses['expenses'].items():
-        if name.upper() not in all_names_upper:
+        if name not in all_names:
             bad_names.append(name)
 
     if len(bad_names) == 0:
