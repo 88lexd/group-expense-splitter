@@ -16,7 +16,7 @@ Refer to the `sample-expenses.yml` or `sample-expenses-simple.yml` files and cre
 
 It is important to note the following:
  - Must define all the names in the group for splitting under the `people` section.
-    - Names are not case sensitive but do recommend to use lowercases.
+    - Names are CASE-SENSITIVE and is recommended to use lowercases.
  - The `expenses` section, you must define a section for each `person` that has made an expense. The names here must match a name defined under the `people` section.
     - Under each person, you then define the actual expense itself along with:
         - The amount spent and if required, who this is being split with (if `split_with` is not defined, then the amount will be split between the whole group)
