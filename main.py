@@ -50,7 +50,7 @@ def main():
     calculate_payments(creditors, debtors)
 
 
-def calculate_payments(creditors, debtors):
+def calculate_payments(creditors: list, debtors: list) -> None:
     # Set final balance now that the debt/credit is fully updated
     [i.set_final_balance() for i in creditors]
     [i.set_final_balance() for i in debtors]
@@ -78,7 +78,7 @@ def calculate_payments(creditors, debtors):
                     break
 
 
-def get_creditors_and_debtors(group):
+def get_creditors_and_debtors(group: dict) -> tuple[list, list]:
     creditors = list()
     debtors = list()
     for name, person in group.items():
@@ -90,7 +90,7 @@ def get_creditors_and_debtors(group):
     return creditors, debtors
 
 
-def show_debt_credit_info(group):
+def show_debt_credit_info(group: dict) -> None:
     for name, person in group.items():
         if person.in_debt():
             balance_str = '{0:.2f}'.format(person.balance() * -1)
@@ -102,7 +102,7 @@ def show_debt_credit_info(group):
         print(f" - Debt: -${'{0:.2f}'.format(person.debt)}")
 
 
-def calculate_all_expenses(group):
+def calculate_all_expenses(group: dict) -> None:
     group_total_expense = 0
     for name, person in group.items():
         if person.expenses is None:
@@ -132,7 +132,7 @@ def calculate_all_expenses(group):
     print(f"\nThe group has spent a total of: ${group_total_expense_str}")
 
 
-def calculate_split_debt(group, split_with, amount):
+def calculate_split_debt(group: dict, split_with: list, amount: float) -> None:
     # Accumulate debt for those splitting the expense
     split_between_number = len(split_with)
     debt_per_person = float(amount / split_between_number)
@@ -140,7 +140,7 @@ def calculate_split_debt(group, split_with, amount):
         group[person.upper()].add_debt(debt_per_person)
 
 
-def calculate_all_debt(group, amount):
+def calculate_all_debt(group: dict, amount: float) -> None:
     # General expenses are split between everyone
     split_between_number = len(group)
     debt_per_person = float(amount / split_between_number)
@@ -148,7 +148,7 @@ def calculate_all_debt(group, amount):
         group[person.upper()].add_debt(debt_per_person)
 
 
-def read_yaml(input_file):
+def read_yaml(input_file: str) -> dict:
     with open(input_file, 'r') as f:
         try:
             config = yaml.load(f, Loader=yaml.BaseLoader)
