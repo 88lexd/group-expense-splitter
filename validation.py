@@ -1,6 +1,6 @@
 import sys
 
-def validate_yaml(all_expenses):
+def validate_yaml(all_expenses: dict) -> None:
     print("Validating the expense names to match name defined under people...")
     validated_key_names, bad_names = validate_expenses_names(all_expenses)
     if not validated_key_names:
@@ -21,7 +21,7 @@ def validate_yaml(all_expenses):
 
 
 # Validate names of the key matches under people.
-def validate_expenses_names(all_expenses):
+def validate_expenses_names(all_expenses: dict) -> tuple[bool, list]:
     all_names = [name for name in all_expenses['people']]
 
     bad_names = list()
@@ -30,14 +30,14 @@ def validate_expenses_names(all_expenses):
             bad_names.append(name)
 
     if len(bad_names) == 0:
-        return True, None
+        return True, []
     else:
         return False, bad_names
 
 
 # Validate people names and the names referenced for splitting.
 # References must match (UPPER CASE is enforced)
-def validate_names_for_spitting(all_expenses):
+def validate_names_for_spitting(all_expenses: dict) -> tuple[bool, list]:
     all_names_for_splitting = list()
     for name, expenses in all_expenses['expenses'].items():
         result = [v['split_with'] for k,v in expenses.items() if 'split_with' in v.keys()]
@@ -58,6 +58,6 @@ def validate_names_for_spitting(all_expenses):
             bad_names.append(name)
 
     if len(bad_names) == 0:
-        return True, None
+        return True, []
     else:
         return False, bad_names
