@@ -47,7 +47,6 @@ def main():
     print("Group Payout Information")
     print("=========================")
     print("Note: Highest debtors will repay highest creditors first")
-
     calculate_payments(group)
 
     print('\nScript Completed!')
