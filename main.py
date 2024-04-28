@@ -115,16 +115,6 @@ def show_debt_credit_info(group: dict) -> None:
         print(f" - Credit: ${'{0:.2f}'.format(debtor.credit)}")
         print(f" - Debt: -${'{0:.2f}'.format(debtor.debt)}")
 
-    # for name, person in group.items():
-    #     if person.in_debt():
-    #         balance_str = '{0:.2f}'.format(person.balance() * -1)
-    #         print(f"{name} (debtor) owes ${balance_str} to the group based on:")
-    #     else:
-    #         balance_str = '{0:.2f}'.format(person.balance())
-    #         print(f"{name} (creditor) is receiving ${balance_str} from the group based on:")
-    #     print(f" - Credit: ${'{0:.2f}'.format(person.credit)}")
-    #     print(f" - Debt: -${'{0:.2f}'.format(person.debt)}")
-
 
 def calculate_all_expenses(group: dict) -> None:
     group_total_expense = 0
