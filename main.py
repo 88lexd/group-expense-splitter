@@ -1,5 +1,6 @@
 from person import Person
 import validation as v
+import math
 import yaml
 import sys
 
@@ -49,6 +50,8 @@ def main():
     creditors, debtors = get_creditors_and_debtors(group)
     calculate_payments(creditors, debtors)
 
+    print('\nScript Completed!')
+
 
 def calculate_payments(creditors: list, debtors: list) -> None:
     # Set final balance now that the debt/credit is fully updated
@@ -56,7 +59,7 @@ def calculate_payments(creditors: list, debtors: list) -> None:
     [i.set_final_balance() for i in debtors]
 
     for creditor in creditors:
-        while (creditor.final_balance) > 0:
+        while round(creditor.final_balance, 2) > 0.00:
             for debtor in debtors:
                 if debtor.final_balance == 0:
                     # Debtor is not owing any money. Skip..
@@ -65,14 +68,15 @@ def calculate_payments(creditors: list, debtors: list) -> None:
                 if (creditor.final_balance + debtor.final_balance) > 0:
                     balance_str = '{0:.2f}'.format(debtor.final_balance * -1)
                     print(f" - {debtor.name} pays {creditor.name} ${balance_str}")
-                    creditor.final_balance = creditor.final_balance + debtor.final_balance
+                    credit_final_balance_rounded = round(creditor.final_balance + debtor.final_balance, 3)
+                    creditor.final_balance = credit_final_balance_rounded
                     debtor.final_balance = 0
                     # Debtor has paid all debt, continue to next debtor
                     continue
                 else:
                     balance_str = '{0:.2f}'.format(creditor.final_balance)
                     print(f" - {debtor.name} pays {creditor.name} ${balance_str}")
-                    debtor.final_balance = debtor.final_balance + creditor.final_balance
+                    debtor.final_balance = round(debtor.final_balance + creditor.final_balance, 3)
                     creditor.final_balance = 0
                     # Creditor is fully paid, break out of debtor loop
                     break
@@ -136,16 +140,18 @@ def calculate_split_debt(group: dict, split_with: list, amount: float) -> None:
     # Accumulate debt for those splitting the expense
     split_between_number = len(split_with)
     debt_per_person = float(amount / split_between_number)
+    debt_per_person_rounded = round(debt_per_person, 3)
     for person in split_with:
-        group[person.upper()].add_debt(debt_per_person)
+        group[person.upper()].add_debt(debt_per_person_rounded)
 
 
 def calculate_all_debt(group: dict, amount: float) -> None:
     # General expenses are split between everyone
     split_between_number = len(group)
     debt_per_person = float(amount / split_between_number)
+    debt_per_person_rounded = round(debt_per_person, 3)
     for person in group:
-        group[person.upper()].add_debt(debt_per_person)
+        group[person.upper()].add_debt(debt_per_person_rounded)
 
 
 def read_yaml(input_file: str) -> dict:

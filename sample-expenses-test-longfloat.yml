@@ -1,0 +1,16 @@
+# Bugfix test: previously when dividing 140/6 we get a long repeating float number.
+# The script has a bug and goes into an infinit loop.
+# This expense sample is to validate the fix
+---
+# All the people in the group to split the bill
+people:
+  - aa
+  - bb
+  - cc
+  - dd
+  - ee
+  - ff
+expenses:
+  aa:
+    food:
+      amount: 140
