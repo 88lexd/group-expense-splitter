@@ -1,6 +1,5 @@
 from person import Person
 import validation as v
-import math
 import yaml
 import sys
 
