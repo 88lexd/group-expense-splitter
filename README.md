@@ -42,36 +42,42 @@ Adding up expenses for each person...
 ===============
 Expense Details
 ===============
-alex has spent:
+ALEX has spent:
  - $200 on dinner
-jay has spent:
+JAY has spent:
  - $100 on drinks (split with: jay, mandy)
-lambo has spent:
+LAMBO has spent:
  - $200 on hotel
-mandy has no expenses
+MANDY has no expenses
 
 The group has spent a total of: $500.00
 
 =========================
 Group Debt/Credit Totals
 =========================
-alex is receiving $100.00 from the group based on:
+** Creditors **
+ALEX is receiving $100.00 from the group based on:
  - Credit: $200.00
  - Debt: -$100.00
-jay owes $50.00 to the group money based on:
- - Credit: $100.00
- - Debt: -$150.00
-lambo is receiving $100.00 from the group based on:
+LAMBO is receiving $100.00 from the group based on:
  - Credit: $200.00
  - Debt: -$100.00
-mandy owes $150.00 to the group money based on:
+
+** Debtors **
+MANDY owes $150.00 to the group based on:
  - Credit: $0.00
+ - Debt: -$150.00
+JAY owes $50.00 to the group based on:
+ - Credit: $100.00
  - Debt: -$150.00
 
 =========================
 Group Payout Information
 =========================
- - JAY pays ALEX $50.00
- - MANDY pays ALEX $50.00
- - MANDY pays LAMBO $100.00
+Note: Highest debtors will repay highest creditors first
+ - MANDY pays ALEX $100.00
+ - MANDY pays LAMBO $50.00
+ - JAY pays LAMBO $50.00
+
+Script Completed!
 ```
