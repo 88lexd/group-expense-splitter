@@ -46,13 +46,16 @@ def main():
     print("\n=========================")
     print("Group Payout Information")
     print("=========================")
-    creditors, debtors = get_creditors_and_debtors(group)
-    calculate_payments(creditors, debtors)
+    print("Note: Highest debtors will repay highest creditors first")
+
+    calculate_payments(group)
 
     print('\nScript Completed!')
 
 
-def calculate_payments(creditors: list, debtors: list) -> None:
+def calculate_payments(group: dict) -> None:
+    creditors, debtors = get_creditors_and_debtors(group)
+
     # Set final balance now that the debt/credit is fully updated
     [i.set_final_balance() for i in creditors]
     [i.set_final_balance() for i in debtors]
@@ -90,19 +93,37 @@ def get_creditors_and_debtors(group: dict) -> tuple[list, list]:
         else:
             creditors.append(person)
 
-    return creditors, debtors
+    # Sort the list (makes payout information cleaner)
+    creditors_high_to_low = sorted(creditors, key=lambda creditor:creditor.credit, reverse=True)
+    debtors_high_to_low = sorted(debtors, key=lambda debtor:debtor.debt, reverse=True)
+
+    return creditors_high_to_low, debtors_high_to_low
 
 
 def show_debt_credit_info(group: dict) -> None:
-    for name, person in group.items():
-        if person.in_debt():
-            balance_str = '{0:.2f}'.format(person.balance() * -1)
-            print(f"{name} owes ${balance_str} to the group money based on:")
-        else:
-            balance_str = '{0:.2f}'.format(person.balance())
-            print(f"{name} is receiving ${balance_str} from the group based on:")
-        print(f" - Credit: ${'{0:.2f}'.format(person.credit)}")
-        print(f" - Debt: -${'{0:.2f}'.format(person.debt)}")
+    creditors, debtors = get_creditors_and_debtors(group)
+
+    for creditor in creditors:
+        balance_str = '{0:.2f}'.format(creditor.balance())
+        print(f"{creditor.name} is receiving ${balance_str} from the group based on:")
+        print(f" - Credit: ${'{0:.2f}'.format(creditor.credit)}")
+        print(f" - Debt: -${'{0:.2f}'.format(creditor.debt)}")
+
+    for debtor in debtors:
+        balance_str = '{0:.2f}'.format(debtor.balance() * -1)
+        print(f"{debtor.name} owes ${balance_str} to the group based on:")
+        print(f" - Credit: ${'{0:.2f}'.format(debtor.credit)}")
+        print(f" - Debt: -${'{0:.2f}'.format(debtor.debt)}")
+
+    # for name, person in group.items():
+    #     if person.in_debt():
+    #         balance_str = '{0:.2f}'.format(person.balance() * -1)
+    #         print(f"{name} (debtor) owes ${balance_str} to the group based on:")
+    #     else:
+    #         balance_str = '{0:.2f}'.format(person.balance())
+    #         print(f"{name} (creditor) is receiving ${balance_str} from the group based on:")
+    #     print(f" - Credit: ${'{0:.2f}'.format(person.credit)}")
+    #     print(f" - Debt: -${'{0:.2f}'.format(person.debt)}")
 
 
 def calculate_all_expenses(group: dict) -> None:
